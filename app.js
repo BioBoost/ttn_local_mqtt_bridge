@@ -1,0 +1,1 @@
+console.log("Launching The Things Network Local MQTT Bridge");

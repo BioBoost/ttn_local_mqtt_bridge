@@ -1,0 +1,26 @@
+{
+  "name": "ttn_local_mqtt_bridge",
+  "version": "1.0.0",
+  "description": "Bridge MQTT from The Things Network to a local MQTT broker",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BioBoost/ttn_local_mqtt_bridge.git"
+  },
+  "keywords": [
+    "ttn",
+    "mqtt",
+    "broker",
+    "iot"
+  ],
+  "author": "Nico De Witte (aka BioBoost)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BioBoost/ttn_local_mqtt_bridge/issues"
+  },
+  "homepage": "https://github.com/BioBoost/ttn_local_mqtt_bridge#readme"
+}
