@@ -1,0 +1,22 @@
+{
+  "local": {
+    "connection": "tcp://<local_ip>:1883"
+  },
+  "remote": {
+    "connection": "tcp://eu.thethings.network:1883"
+  },
+  "bridges": [
+    {
+      "remote": {
+        "app_id": "xxxxxxxxxxx",
+        "base64_access_key": "xxxxxxxxxxxxxxxxxx",
+        "devices": [
+          "device_00", "device_01"
+        ]
+      },
+      "local": {
+        "topic": "test/home"
+      }
+    }
+  ]
+}
