@@ -1,5 +1,5 @@
 const fs = require('fs');
-const bridgebuilder = require('./src/bridge');
+const mqtt = require('mqtt');
 
 console.log("Launching The Things Network Local MQTT Bridge");
 
@@ -11,19 +11,38 @@ try {
   process.exit();
 }
 
+let localBroker  = mqtt.connect(config.local.connection);
+let ttnBroker  = mqtt.connect(config.remote.connection, {
+  username: config.remote.app_id,
+  password: config.remote.base64_access_key
+});
+
+localBroker.on('connect', function () {
+  console.log("Successfully connected to local broker");
+});
+
 bridges = [];
-config.bridges.forEach(function(item, index, array) {
-  console.log("Creating bridge");
+ttnBroker.on('connect', function () {
+  console.log("Successfully connected to TTN broker");
 
-  let bridge = {
-    local: config.local.connection,
-    remote: config.remote.connection,
-    username: item.remote.app_id,
-    password: item.remote.base64_access_key,
-    devices: item.remote.devices,
-    local_topic: item.local.topic
-  };
+  config.bridges.forEach(function(bridge, index, array) {
+    console.log("Creating bridge per device");
 
-  bridges.push(bridge);
-  bridgebuilder.build(bridge);
+    bridge.remote.devices.forEach(function(device, index, array) {
+      bridges.push({
+        local: localBroker,
+        remote: ttnBroker,
+        remote_topic: config.remote.app_id + "/devices" + device + "/up",
+        local_topic: bridge.local.topic
+      });
+
+      ttnBroker.subscribe(bridges[bridges.length-1].remote_topic, function (err) {
+        if (err) {
+          console.log("Failed to subscribe to ttn topic");
+        } else {
+          console.log("Successfully subscribed to ttn topic");
+        }
+      });
+    });
+  });
 });

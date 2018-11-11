@@ -3,19 +3,29 @@
     "connection": "tcp://<local_ip>:1883"
   },
   "remote": {
-    "connection": "tcp://eu.thethings.network:1883"
+    "connection": "tcp://eu.thethings.network:1883",
+    "app_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "base64_access_key": "xxxxxxxxxxxx"
   },
   "bridges": [
     {
       "remote": {
-        "app_id": "xxxxxxxxxxx",
-        "base64_access_key": "xxxxxxxxxxxxxxxxxx",
         "devices": [
-          "device_00", "device_01"
+          "xxxxxxxxxxxxxxx"
         ]
       },
       "local": {
-        "topic": "test/home"
+        "topic": "test/home/motion/garage"
+      }
+    },
+    {
+      "remote": {
+        "devices": [
+          "xxxxxxxxxxxxxxxxxxxx"
+        ]
+      },
+      "local": {
+        "topic": "test/home/motion/hallway"
       }
     }
   ]

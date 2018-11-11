@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/BioBoost/ttn_local_mqtt_bridge/issues"
   },
-  "homepage": "https://github.com/BioBoost/ttn_local_mqtt_bridge#readme"
+  "homepage": "https://github.com/BioBoost/ttn_local_mqtt_bridge#readme",
+  "dependencies": {
+    "mqtt": "^2.18.8"
+  }
 }

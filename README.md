@@ -10,8 +10,6 @@ Bridge MQTT from The Things Network to a local MQTT broker
 "bridges": [
   {
     "remote": {
-      "app_id": "test_smart_campus_boards",
-      "base64_access_key": "my_secret_key",
       "devices": [
         "prototype", "print_01"
       ]
@@ -29,8 +27,6 @@ Want different topics for each device or subtopic, then create bridge for each.
 "bridges": [
   {
     "remote": {
-      "app_id": "test_smart_campus_boards",
-      "base64_access_key": "my_secret_key",
       "devices": [
         "prototype"
       ]
