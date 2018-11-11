@@ -32,7 +32,7 @@ ttnBroker.on('connect', function () {
       bridges.push({
         local: localBroker,
         remote: ttnBroker,
-        remote_topic: config.remote.app_id + "/devices" + device + "/up",
+        remote_topic: config.remote.app_id + "/devices/" + device + "/up",
         local_topic: bridge.local.topic
       });
 
@@ -44,5 +44,19 @@ ttnBroker.on('connect', function () {
         }
       });
     });
+  });
+});
+
+ttnBroker.on('message', function (topic, message) {
+  // message is Buffer
+  let payload = JSON.stringify(JSON.parse(message.toString())['payload_fields']);
+  bridges.forEach(function(bridge, index, array) {
+    if (bridge.remote_topic == topic) {
+      bridge.local.publish(bridge.local_topic, payload, function(err){
+        if (err) {
+          console.log("Failed to publish: " + payload);
+        }
+      });
+    }
   });
 });
