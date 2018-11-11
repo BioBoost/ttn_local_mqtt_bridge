@@ -33,7 +33,8 @@ ttnBroker.on('connect', function () {
         local: localBroker,
         remote: ttnBroker,
         remote_topic: config.remote.app_id + "/devices/" + device + "/up",
-        local_topic: bridge.local.topic
+        local_topic: bridge.local.topic,
+        device: device
       });
 
       ttnBroker.subscribe(bridges[bridges.length-1].remote_topic, function (err) {
@@ -49,10 +50,11 @@ ttnBroker.on('connect', function () {
 
 ttnBroker.on('message', function (topic, message) {
   // message is Buffer
-  let payload = JSON.stringify(JSON.parse(message.toString())['payload_fields']);
+  let payload = JSON.parse(message.toString())['payload_fields'];
   bridges.forEach(function(bridge, index, array) {
     if (bridge.remote_topic == topic) {
-      bridge.local.publish(bridge.local_topic, payload, function(err){
+      payload.device_id = bridge.device;
+      bridge.local.publish(bridge.local_topic, JSON.stringify(payload), function(err){
         if (err) {
           console.log("Failed to publish: " + payload);
         }
