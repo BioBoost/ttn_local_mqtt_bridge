@@ -1,4 +1,5 @@
 const fs = require('fs');
+const bridgebuilder = require('./src/bridge');
 
 console.log("Launching The Things Network Local MQTT Bridge");
 
@@ -24,6 +25,5 @@ config.bridges.forEach(function(item, index, array) {
   };
 
   bridges.push(bridge);
+  bridgebuilder.build(bridge);
 });
-
-console.log(bridges);
